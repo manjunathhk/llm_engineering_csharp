@@ -1,60 +1,95 @@
-# LLM Engineering in C#
+# LLM Engineering in C# (.NET 10)
 
-A comprehensive C# implementation of LLM Engineering concepts, converted from Ed Donner's Python-based LLM Engineering course. This repository provides production-ready, enterprise-grade implementations of modern AI engineering patterns using .NET technologies.
+A comprehensive C# implementation of LLM Engineering concepts, converted from Ed Donner's Python-based course. Enterprise-grade implementations of modern AI engineering patterns using .NET 10 LTS and Visual Studio 2026.
 
-## 🎯 Course Overview
+## 🚀 Quick Start
 
-This is an 8-week journey through LLM Engineering, implementing real-world AI applications:
+### Prerequisites
+- **.NET 10.0 SDK** (LTS - released November 2025)
+- **Visual Studio 2026** or VS Code with C# Dev Kit
+- **Docker Desktop** (for vector databases)
+- **API Keys**: OpenAI, Anthropic (optional for local Ollama)
+
+### Setup
+```bash
+git clone https://github.com/manjunathhk/llm_engineering_csharp.git
+cd llm_engineering_csharp
+
+# Restore packages
+dotnet restore
+
+# Configure API keys (user secrets)
+dotnet user-secrets init --project src/LLM.Engineering.Web
+dotnet user-secrets set "LLM:OpenAI:ApiKey" "your-openai-key"
+dotnet user-secrets set "LLM:Anthropic:ApiKey" "your-anthropic-key"
+
+# Run application
+dotnet run --project src/LLM.Engineering.Web
+```
+
+### Local LLM Alternative (Ollama)
+```bash
+# Install and run Ollama
+ollama run llama3.2
+
+# Configure for local usage
+dotnet user-secrets set "LLM:OpenAI:BaseUrl" "http://localhost:11434/v1"
+dotnet user-secrets set "LLM:OpenAI:ApiKey" "ollama"
+```
+
+## 📚 Course Overview
+
+8-week journey through LLM Engineering with real-world AI applications:
 
 ### Week 1: AI-Powered Web Scraper & Brochure Generator
-- **Goal**: Build an AI system that scrapes company websites and generates professional brochures
-- **Technologies**: HtmlAgilityPack, OpenAI API, ASP.NET Core
-- **Key Concepts**: Web scraping, prompt engineering, content generation
+- **Goal**: Build AI system for website scraping and professional brochure generation
+- **Tech**: HtmlAgilityPack, OpenAI API, ASP.NET Core 10
+- **Concepts**: Web scraping, prompt engineering, content generation
 
-### Week 2: Frontier APIs & Customer Service Chatbots
-- **Goal**: Create multi-modal customer service agents with UI and function calling
-- **Technologies**: OpenAI, Anthropic, Blazor, SignalR
-- **Key Concepts**: API integration, real-time chat, tool usage
+### Week 2: Frontier APIs & Customer Service Chatbots  
+- **Goal**: Multi-modal customer service agents with UI and function calling
+- **Tech**: OpenAI, Anthropic, Blazor 10, SignalR
+- **Concepts**: API integration, real-time chat, tool usage
 
 ### Week 3: Audio Processing & Meeting Minutes
-- **Goal**: Convert audio to meeting minutes and action items using open and closed-source models
-- **Technologies**: NAudio, Azure Speech Services, ML.NET
-- **Key Concepts**: Audio processing, transcription, summarization
+- **Goal**: Convert audio to meeting minutes using open/closed-source models
+- **Tech**: NAudio, Azure Speech Services, ML.NET
+- **Concepts**: Audio processing, transcription, summarization
 
 ### Week 4: AI Code Converter
-- **Goal**: Build AI that converts Python to optimized C++, achieving 60,000x performance improvements
-- **Technologies**: Roslyn, CodeAnalysis APIs, OpenAI
-- **Key Concepts**: Code analysis, optimization, transpilation
+- **Goal**: Build AI for Python to optimized C++ conversion (60,000x improvements)
+- **Tech**: Roslyn, CodeAnalysis APIs, OpenAI
+- **Concepts**: Code analysis, optimization, transpilation
 
 ### Week 5: RAG Knowledge Worker
-- **Goal**: Create an AI expert on company matters using Retrieval-Augmented Generation
-- **Technologies**: Qdrant, Semantic Kernel, Entity Framework
-- **Key Concepts**: Vector databases, embeddings, knowledge retrieval
+- **Goal**: AI expert on company matters using Retrieval-Augmented Generation
+- **Tech**: Qdrant, Semantic Kernel, Entity Framework Core 10
+- **Concepts**: Vector databases, embeddings, knowledge retrieval
 
 ### Week 6: Price Prediction with Frontier Models
 - **Goal**: Predict product prices from descriptions using state-of-the-art models
-- **Technologies**: ML.NET, Azure ML, OpenAI
-- **Key Concepts**: Price modeling, feature engineering, model evaluation
+- **Tech**: ML.NET, Azure ML, OpenAI
+- **Concepts**: Price modeling, feature engineering, evaluation
 
 ### Week 7: Fine-Tuning with QLoRA
-- **Goal**: Fine-tune open-source models to compete with frontier models in price prediction
-- **Technologies**: ONNX Runtime, HuggingFace.NET, Azure ML
-- **Key Concepts**: Model fine-tuning, parameter-efficient training
+- **Goal**: Fine-tune open-source models to compete with frontier models
+- **Tech**: ONNX Runtime, HuggingFace.NET, Azure ML
+- **Concepts**: Model fine-tuning, parameter-efficient training
 
 ### Week 8: Autonomous Multi-Agent System
-- **Goal**: Build collaborative agents that spot deals and notify users of special bargains
-- **Technologies**: MassTransit, Azure Service Bus, Multi-agent frameworks
-- **Key Concepts**: Agent orchestration, autonomous systems, real-time notifications
+- **Goal**: Collaborative agents for deal spotting and bargain notifications
+- **Tech**: Microsoft Agent Framework, MassTransit, Azure Service Bus
+- **Concepts**: Agent orchestration, autonomous systems, notifications
 
 ## 🏗️ Architecture
 
 ```
-LLM.Engineering.CSharp/
+llm_engineering_csharp/
 ├── src/
-│   ├── LLM.Engineering.Core/              # Core abstractions & models
+│   ├── LLM.Engineering.Core/              # Domain models & abstractions
 │   ├── LLM.Engineering.Infrastructure/    # External API integrations  
 │   ├── LLM.Engineering.Application/       # Business logic & services
-│   └── LLM.Engineering.Web/              # Web API & Blazor UI
+│   └── LLM.Engineering.Web/              # ASP.NET Core 10 API & Blazor UI
 ├── samples/
 │   ├── Week01.WebScraper/                # Web scraping + brochures
 │   ├── Week02.CustomerService/           # Customer service chatbots
@@ -70,73 +105,33 @@ LLM.Engineering.CSharp/
     └── LLM.Engineering.Integration.Tests/
 ```
 
-## 🚀 Quick Start
+## 🔧 Key Technologies
 
-### Prerequisites
-- .NET 8.0 SDK
-- Visual Studio 2022 or VS Code with C# Dev Kit
-- Docker Desktop (for vector databases)
-- API Keys: OpenAI, Anthropic (optional)
-
-### Setup
-```bash
-# Clone the repository
-git clone https://github.com/manjunath/llm-engineering-csharp.git
-cd llm-engineering-csharp
-
-# Restore packages
-dotnet restore
-
-# Set up API keys (user secrets)
-dotnet user-secrets init --project src/LLM.Engineering.Web
-dotnet user-secrets set "LLM:OpenAI:ApiKey" "your-openai-key"
-dotnet user-secrets set "LLM:Anthropic:ApiKey" "your-anthropic-key"
-
-# Run the web application
-dotnet run --project src/LLM.Engineering.Web
-```
-
-### Local LLM Alternative (Ollama)
-```bash
-# Install Ollama and run local models
-ollama run llama3.2
-
-# Configure for local usage
-dotnet user-secrets set "LLM:OpenAI:BaseUrl" "http://localhost:11434/v1"
-dotnet user-secrets set "LLM:OpenAI:ApiKey" "ollama"
-```
-
-## 📦 Key Technologies
+### .NET 10 & C# 14 Features
+- **File-based apps**: Single-file applications with `#sdk` directives
+- **Field-backed properties**: Enhanced property syntax
+- **Performance**: JIT improvements, better struct handling
+- **Microsoft Agent Framework**: Multi-agent AI orchestration
 
 ### LLM Integration
-- **OpenAI**: `OpenAI` NuGet package
-- **Anthropic**: `Anthropic.SDK`
-- **Azure OpenAI**: `Azure.AI.OpenAI`
+- **OpenAI**: Latest GPT models with structured outputs
+- **Anthropic**: Claude 3.5 Sonnet integration
+- **Azure OpenAI**: Enterprise-grade AI services
 - **Semantic Kernel**: Microsoft's LLM orchestration framework
 
-### Vector Databases
-- **Qdrant**: `Qdrant.Client` - production vector database
-- **Azure AI Search**: `Azure.Search.Documents`
-- **In-memory**: Custom FAISS wrapper
-
-### Data Processing
+### Data & Vector Stores
+- **Qdrant**: Production vector database
+- **Azure AI Search**: Cognitive search capabilities
+- **Entity Framework Core 10**: Modern ORM with .NET 10 optimizations
 - **ML.NET**: Microsoft's machine learning framework
-- **ONNX Runtime**: Cross-platform ML inference
-- **CsvHelper**: CSV data processing
-- **HtmlAgilityPack**: Web scraping
 
-### Audio/Media
-- **NAudio**: Audio processing and manipulation
-- **SixLabors.ImageSharp**: Image processing
-- **FFMpegCore**: Video/audio encoding
-
-### Web & API
-- **ASP.NET Core**: Web API framework
-- **Blazor**: Interactive web UI
+### Web & Real-time
+- **ASP.NET Core 10**: High-performance web framework
+- **Blazor 10**: Interactive WebAssembly applications
 - **SignalR**: Real-time communication
-- **Polly**: Resilience and fault tolerance
+- **Minimal APIs**: Lightweight API endpoints
 
-## 🔧 Configuration
+## ⚙️ Configuration
 
 ### appsettings.json
 ```json
@@ -148,23 +143,28 @@ dotnet user-secrets set "LLM:OpenAI:ApiKey" "ollama"
       "MaxTokens": 1000
     },
     "Anthropic": {
-      "DefaultModel": "claude-3-haiku-20240307",
+      "DefaultModel": "claude-3-5-sonnet-20241022",
       "Temperature": 0.7,
       "MaxTokens": 1000
     }
   },
   "VectorStore": {
-    "Provider": "Qdrant",
+    "Provider": "Qdrant", 
     "ConnectionString": "http://localhost:6333"
   }
 }
 ```
 
-### Environment Variables
-```bash
-LLM__OpenAI__ApiKey=your-openai-key
-LLM__Anthropic__ApiKey=your-anthropic-key
-VectorStore__ConnectionString=your-vector-db-connection
+### Directory.Build.props
+```xml
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>14.0</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>
 ```
 
 ## 🧪 Testing
@@ -173,76 +173,73 @@ VectorStore__ConnectionString=your-vector-db-connection
 # Run all tests
 dotnet test
 
-# Run specific test project
-dotnet test tests/LLM.Engineering.Core.Tests/
-
-# Run with coverage
+# Test with coverage
 dotnet test --collect:"XPlat Code Coverage"
+
+# Run specific project
+dotnet test tests/LLM.Engineering.Core.Tests/
 ```
 
-## 📖 Week-by-Week Progress
+## 📈 Progress
 
 - [x] **Week 1**: Web Scraper & Brochure Generator ✅
 - [ ] **Week 2**: Customer Service Chatbots 🚧
 - [ ] **Week 3**: Audio Processing & Meeting Minutes
-- [ ] **Week 4**: AI Code Converter
+- [ ] **Week 4**: AI Code Converter  
 - [ ] **Week 5**: RAG Knowledge Worker
 - [ ] **Week 6**: Price Prediction Models
 - [ ] **Week 7**: Model Fine-Tuning
 - [ ] **Week 8**: Multi-Agent Systems
 
-## 🎓 Learning Path
+## 💡 Learning Path
 
-Each week builds upon previous concepts:
-
-1. **Foundations**: Basic LLM integration and prompt engineering
-2. **APIs**: Working with multiple LLM providers
-3. **Multi-modal**: Handling text, audio, and images
-4. **Code Intelligence**: AI-powered code analysis and generation
-5. **Knowledge Systems**: RAG and vector databases
-6. **Machine Learning**: Training and fine-tuning models
-7. **Advanced ML**: Parameter-efficient fine-tuning
-8. **Systems**: Multi-agent orchestration and automation
+1. **Foundations**: LLM integration and prompt engineering
+2. **Multi-modal**: Text, audio, and image processing
+3. **Code Intelligence**: AI-powered development tools
+4. **Knowledge Systems**: RAG and semantic search
+5. **Machine Learning**: Training and optimization
+6. **Agent Systems**: Autonomous AI collaboration
 
 ## 💰 Cost Management
 
 - **Development**: Use `gpt-4o-mini` and `claude-3-haiku` for cost efficiency
-- **Local Alternative**: Ollama with Llama 3.2 for offline development
+- **Local Development**: Ollama with Llama 3.2 for offline work
 - **Monitoring**: Built-in usage tracking and cost alerts
-- **Estimated**: <$5 total for entire course completion
+- **Estimated Cost**: <$5 for complete course
 
 ## 🤝 Contributing
 
-This repository follows Clean Architecture principles:
+Follows Clean Architecture and .NET 10 best practices:
 
-1. **Core**: Domain models and abstractions (no dependencies)
-2. **Infrastructure**: External service implementations
-3. **Application**: Business logic and use cases
-4. **Web**: Presentation layer and APIs
+- **Core**: Domain models (no dependencies)
+- **Infrastructure**: External service implementations  
+- **Application**: Business logic and use cases
+- **Web**: Presentation layer and APIs
 
 ### Development Guidelines
+- Use .NET 10 and C# 14 features
 - Follow SOLID principles
-- Use dependency injection
 - Implement comprehensive logging
 - Write unit and integration tests
 - Document public APIs
 
-## 📚 Additional Resources
+## 📚 Resources
 
 - **Original Course**: [Ed Donner's LLM Engineering](https://github.com/ed-donner/llm_engineering)
-- **.NET AI**: [Microsoft Learn AI](https://learn.microsoft.com/en-us/dotnet/ai/)
+- **.NET 10**: [What's New in .NET 10](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-10/overview)
+- **C# 14**: [C# 14 Features](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-14)
 - **Semantic Kernel**: [Microsoft Semantic Kernel](https://github.com/microsoft/semantic-kernel)
 - **ML.NET**: [Machine Learning for .NET](https://dotnet.microsoft.com/en-us/apps/machinelearning-ai/ml-dotnet)
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT License - see [LICENSE](LICENSE) file for details.
 
-## 🙋‍♂️ About
+## 👨‍💻 About
 
-Created by **Manjunath** as a C# implementation of modern LLM Engineering patterns. This repository demonstrates enterprise-grade AI applications using .NET technologies, following best practices for production deployment.
+Created by **Manjunath** as a comprehensive C# implementation of modern LLM Engineering patterns using .NET 10 LTS and Visual Studio 2026.
 
-**Tech Stack**: .NET 8, C#, ASP.NET Core, Blazor, ML.NET, Azure AI Services
+**Tech Stack**: .NET 10, C# 14, ASP.NET Core 10, Blazor 10, ML.NET, Azure AI Services
 
 ---
 
