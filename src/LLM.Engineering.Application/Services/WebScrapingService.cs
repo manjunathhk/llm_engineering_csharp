@@ -28,20 +28,12 @@ public class WebScrapingService : IWebScrapingService
         var scrapingResult = await _webScraper.ScrapeAsync(url, cancellationToken);
 
         var prompt = $"""
-            Analyze the following website content and extract company information in JSON format:
+            Extract company information from this content and return ONLY valid JSON with no other text:
 
-            Title: {scrapingResult.Title}
             Content: {scrapingResult.Content}
 
-            Extract:
-            - Company name
-            - Description (2-3 sentences)
-            - Services/products (list)
-            - Key messages (list)
-            - Industry
-            - Founded year (if available)
-
-            Return as JSON only with keys: companyName, description, services, keyMessages, industry, foundedYear
+            Return JSON with keys: companyName, description, services, keyMessages, industry, foundedYear
+            Do not include markdown formatting or explanatory text.
             """;
 
         var response = await _llmProvider.GenerateStructuredResponseAsync<CompanyData>(prompt, cancellationToken);
