@@ -52,3 +52,52 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+
+# Add general C# related ignores
+*.csproj.user
+*.sln.docstates
+*.sln.ide
+*.sln.iml
+*.sln.suo
+.vs/
+
+# Ignore build output directories
+bin/
+obj/
+out/
+publish/
+# Ignore NuGet packages
+*.nupkg
+packages/
+# Ignore Rider project files
+.idea/
+# Ignore ReSharper files
+_ReSharper*/
+*.DotSettings.user
+# Ignore Visual Studio Code settings
+.vscode/
+# Ignore temporary files
+*.tmp
+*.log
+*.cache
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
+# Ignore test result files
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+# Ignore user-specific files
+*.user
+*.userosscache
+*.suo
+*.pidb
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+*.VC.opendb
+# Ignore publish profiles
+Properties/PublishProfiles/
