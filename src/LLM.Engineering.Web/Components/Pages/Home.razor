@@ -1,0 +1,105 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using LLM.Engineering.Application.Interfaces
+@inject IWebScrapingService WebScrapingService
+@inject ILogger<Home> Logger
+
+<PageTitle>LLM Engineering</PageTitle>
+
+<h1>LLM Engineering - Web Scraper</h1>
+
+<div class="mb-3">
+    <label for="urlInput" class="form-label">Website URL:</label>
+    <input type="url" class="form-control" id="urlInput" @bind="url" placeholder="https://example.com" />
+</div>
+
+<button class="btn btn-primary" @onclick="ScrapeWebsite" disabled="@isLoading">
+    @if (isLoading)
+    {
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span>Scraping...</span>
+    }
+    else
+    {
+        <span>Scrape Website</span>
+    }
+</button>
+
+@if (result != null)
+{
+    <div class="mt-4">
+        <h3>Company Information</h3>
+        <h4>Complete response: @result.ToString()</h4>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@result.CompanyData.CompanyName</h5>
+                <p class="card-text">@result.CompanyData.Description</p>
+
+                @if (result.CompanyData.Services?.Count > 0)
+                {
+                    <h6>Services:</h6>
+                    <ul>
+                        @foreach (var service in result.CompanyData.Services)
+                        {
+                            <li>@service</li>
+                        }
+                    </ul>
+                }
+
+                @if (result.CompanyData.KeyMessages?.Count > 0)
+                {
+                    <h6>Key Messages:</h6>
+                    <ul>
+                        @foreach (var message in result.CompanyData.KeyMessages)
+                        {
+                            <li>@message</li>
+                        }
+                    </ul>
+                }
+
+                <small class="text-muted">Industry: @result.CompanyData.Industry</small>
+            </div>
+        </div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger mt-3" role="alert">
+        @errorMessage
+    </div>
+}
+
+@code {
+    private string url = "";
+    private bool isLoading = false;
+    private LLM.Engineering.Application.Models.CompanyDataResult? result;
+    private string errorMessage = "";
+
+    private async Task ScrapeWebsite()
+    {
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            errorMessage = "Please enter a valid URL.";
+            return;
+        }
+
+        isLoading = true;
+        errorMessage = "";
+        result = null;
+
+        try
+        {
+            result = await WebScrapingService.ExtractCompanyDataAsync(url);
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+            Logger.LogError(ex, "Error scraping website {Url}", url);
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

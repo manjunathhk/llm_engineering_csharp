@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="../.gitignore" />
+    <File Path="../LICENSE" />
+    <File Path="../README.md" />
+    <File Path=".gitignore" />
+  </Folder>
+  <Project Path="LLM.Engineering.Application/LLM.Engineering.Application.csproj" />
+  <Project Path="LLM.Engineering.Core/LLM.Engineering.Core.csproj" Id="f2fee5ac-409e-4a70-9e95-6c70df88d014" />
+  <Project Path="LLM.Engineering.Infrastructure/LLM.Engineering.Infrastructure.csproj" Id="280a498d-a2ef-4f7f-8533-0b997b90800d" />
+  <Project Path="LLM.Engineering.Web/LLM.Engineering.Web.csproj" />
+</Solution>
